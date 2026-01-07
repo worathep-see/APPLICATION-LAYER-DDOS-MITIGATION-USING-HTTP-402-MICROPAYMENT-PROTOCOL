@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-sqlalchemy
-pydantic
-httpx
-passlib
-python-multipart
-argon2
