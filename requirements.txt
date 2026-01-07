@@ -4,5 +4,5 @@ sqlalchemy
 pydantic
 httpx
 passlib
+argon2-cffi
 python-multipart
-argon2
