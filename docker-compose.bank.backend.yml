@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  bank:
+    build: .
+    # เพิ่มบรรทัดนี้: สั่งให้เข้าไปทำงานในโฟลเดอร์ Bank
+    working_dir: /app/Bank
+    # รัน main:app (เพราะไฟล์ main.py อยู่ในโฟลเดอร์ Bank)
+    command: uvicorn main:app --host 0.0.0.0 --port 80
+    ports:
+      - "80:80"
+    volumes:
+      # แก้ path database ให้ตรงกับที่ทำงาน
+      - ./Bank/bank.db:/app/Bank/bank.db
+    restart: always
+
+  backend:
+    build: .
+    # Backend อยู่หน้าแรก (Root) อยู่แล้ว ไม่ต้องเพิ่ม working_dir
+    command: uvicorn backend:app --host 0.0.0.0 --port 81
+    ports:
+      - "81:81"
+    restart: always

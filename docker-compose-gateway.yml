@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  gateway:
+    build: .
+    # เพิ่มบรรทัดนี้: สั่งให้เข้าไปทำงานในโฟลเดอร์ Gateway
+    working_dir: /app/Gateway
+    # รัน gateway:app (เพราะไฟล์ gateway.py อยู่ในนี้แล้ว)
+    command: uvicorn gateway:app --host 0.0.0.0 --port 80
+    ports:
+      - "80:80"
+    environment:
+      - BANK_API_URL=${BANK_API_URL}
+      - BACKEND_API_URL=${BACKEND_API_URL}
+    restart: always
