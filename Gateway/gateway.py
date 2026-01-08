@@ -51,7 +51,7 @@ def home():
 async def get_premium_data(x_payment_token: str = Header(None, alias="X-Payment-Token")):
     
     if not x_payment_token:
-        raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Missing Payment Token. Please purchese at Bank")
+        raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Missing Payment Token. Please purchase at Bank")
     
     is_valid, message = await verify_payment_token(x_payment_token)
     if not is_valid:

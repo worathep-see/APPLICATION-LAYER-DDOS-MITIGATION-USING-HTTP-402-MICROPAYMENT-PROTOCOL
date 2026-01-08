@@ -1,28 +1,21 @@
+# แก้ไฟล์ Bank/database.py
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base
 import os
 
-# --- จุดที่แก้ไข: หาที่อยู่ไฟล์จริง (Absolute Path) ---
-# หาว่าไฟล์ database.py นี้อยู่ที่โฟลเดอร์ไหนในเครื่อง Server
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# --- แก้ไขส่วนนี้ ---
+# ใช้โฟลเดอร์ปัจจุบันเลย (จะได้ตรงกับ volume ที่ mount ไว้ใน /app/Bank)
+DATABASE_URL = "sqlite:///bank.db"
+# ------------------
 
-# สั่งให้สร้าง bank.db ไว้ในโฟลเดอร์เดียวกันเลย (จะไม่มีทางหลงที่แน่นอน)
-DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'bank.db')}"
-# --------------------------------------------------
-
-# Engine ตัวจัดการฐานข้อมูล
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False}, echo=False)
-
-# Session ใช้ทำ transaction 
 sessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
-    # สร้างตารางทั้งหมดในฐานข้อมูล
     Base.metadata.create_all(bind=engine)
 
 def get_db():
-    # สร้าง session ใหม่สำหรับการเชื่อมต่อฐานข้อมูล
     db = sessionLocal()
     try:
         yield db
