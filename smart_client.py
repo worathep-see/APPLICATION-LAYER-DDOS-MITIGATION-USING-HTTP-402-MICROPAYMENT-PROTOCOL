@@ -1,8 +1,8 @@
 from locust import HttpUser, task, between
 import uuid
 
-BANK_API_URL = "http://159.223.91.111"
-GATEWAY_API_URL = "http://178.128.112.10"
+BANK_API_URL = os.getenv("BANK_API_URL", "http://127.0.0.1:8000")
+GATEWAY_API_URL = os.getenv("GATEWAY_API_URL", "http://127.0.0.1:80")
 
 class SmartClient(HttpUser):
     wait_time = between(1, 2)
