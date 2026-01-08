@@ -1,5 +1,9 @@
 from locust import HttpUser, task, between
 import uuid
+import os
+from dotenv import load_dotenv
+import sys
+load_dotenv()
 
 BANK_API_URL = os.getenv("BANK_API_URL", "http://127.0.0.1:8000")
 GATEWAY_API_URL = os.getenv("GATEWAY_API_URL", "http://127.0.0.1:80")
